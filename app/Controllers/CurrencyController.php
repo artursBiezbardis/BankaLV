@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Services\DeleteAllRowsService;
 use App\Services\AddCurrenciesService;
 use App\Services\ShowCurrenciesService;
-
 class CurrencyController
 {
     public function emptyTable(): void
