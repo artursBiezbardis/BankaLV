@@ -4,13 +4,13 @@
 namespace App\Services;
 
 use App\Repositories\CurrencyRepository;
+
 class AddCurrenciesService
 {
-    public function execute( array $allCurrencies)
+    public function execute(array $allCurrencies)
     {
-        foreach ($allCurrencies as $item)
-        {
-            new CurrencyRepository($item['name'],$item['price']);
+        foreach ($allCurrencies as $item) {
+            (new CurrencyRepository($item['name'], $item['price']))->addCurrencies();
         }
     }
 }

@@ -2,25 +2,28 @@
 
 namespace App\Repositories;
 
+use App\Models\Currency;
 
 class CurrencyRepository
 {
-
     private string $name;
-    private float $price;
+    private string $price;
 
-    public function __construct(string $name=null, float $price=null)
+    public function __construct(string $name = null, string $price = null)
     {
-        if($name!==null&&$price!==null){
-
+        if ($name !== null && $price !== null) {
             $this->name = $name;
             $this->price = $price;
         }
-
     }
-    function showCurrencies(){
 
-
+    function showCurrencies()
+    {
+        return query()
+            ->select('*')
+            ->from('currencies')
+            ->execute()
+            ->fetchAllAssociative();
     }
 
     function addCurrencies()
@@ -30,15 +33,11 @@ class CurrencyRepository
             ->insert('currencies')
             ->values([
                 'name' => ':name',
-                'price' => ':price'
-            ])
+                'price' => ':price'])
             ->setParameters([
-
                 'name' => $this->name,
-                'price' => $this->price
-            ])
+                'price' => $this->price])
             ->execute();
-
 
     }
 
