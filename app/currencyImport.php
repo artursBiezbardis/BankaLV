@@ -3,7 +3,6 @@
 use Sabre\Xml\Service;
 use App\Controllers\CurrencyController;
 
-ini_set('xdebug.var_display_max_depth', '10');
 $xml = file_get_contents('https://www.bank.lv/vk/ecb.xml');
 $service = new Service();
 $service->elementMap =
@@ -23,5 +22,3 @@ foreach ($currencyArray[1]['value'] as $key => $item) {
         ];
 }
 (new CurrencyController())->addCurrencies($currenciesCollection);
-
-//var_dump($currenciesCollection);
