@@ -8,5 +8,8 @@ class CurrencyController
     {
         (new DeleteAllRowsService())->execute();
     }
+    public function addCurrencies()
+    {
 
+    }
 }

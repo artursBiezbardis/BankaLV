@@ -36,15 +36,15 @@ function query(): QueryBuilder
 }
 
 
-/*ini_set('xdebug.var_display_max_depth', '10' );*/
+ini_set('xdebug.var_display_max_depth', '10' );
 $xml=file_get_contents('https://www.bank.lv/vk/ecb.xml');
 $service = new Service();
 $service->elementMap=[
     'Currency'=>'Sabre\Xml\Deserializer\keyValue'
 ];
-$result=$service->parse($xml);
+$currencyArray=$service->parse($xml);
 
-function adCurrencies(array $currencyArray)
+/*function adCurrencies(array $currencyArray)
 {
     foreach ($currencyArray[1]['value'] as $item) {
 
@@ -62,11 +62,22 @@ function adCurrencies(array $currencyArray)
             ->execute();
 
     }
-}
-function deleteAllTableContent()
+}*/
+
+/*function deleteAllTableContent()
 {
     query()->delete('currencies')->execute();
-}
+}*/
 (new CurrencyController())->emptyTable();
+$currenciesCollection=[];
+foreach ($currencyArray[1]['value'] as $key=>$item)
+{
+    $currenciesCollection[$key]=
+        [
+        'name' => $item['value'][0]['value'],
+        'price' => $item['value'][1]['value']
+    ];
+}
+var_dump($currenciesCollection);
 /*deleteAllTableContent();*/
-adCurrencies($result);
+/*adCurrencies($result)*/;
